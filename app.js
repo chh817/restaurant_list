@@ -31,9 +31,6 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-// Requiring the JSON file
-const restaurantList = require("./restaurant.json")
-
 // Locating the static files
 app.use(express.static("public"))
 
