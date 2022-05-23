@@ -13,7 +13,7 @@ app.engine("handlebars", engine({ defaultLayout: "main" }))
 app.set("view engine", "handlebars")
 
 // Requiring the Mongoose package
-const mongoose = require('mongoose')
+const mongoose = require("mongoose")
 
 // Setting up the connection to the MongoDB Atlas database
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -22,26 +22,26 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 const db = mongoose.connection
 
 // Connection failed
-db.on('error', () => {
-  console.log('mongodb error!')
+db.on("error", () => {
+  console.log("mongodb error!")
 })
 
 // Connection successful
-db.once('open', () => {
-  console.log('mongodb connected!')
+db.once("open", () => {
+  console.log("mongodb connected!")
 })
 
 // Locating the static files
 app.use(express.static("public"))
 
 // Requiring the Restaurant model
-const Restaurant = require('./models/restaurant')
+const Restaurant = require("./models/restaurant")
 
 // Setting the static route for the index page
 app.get("/", (req, res) => {
   Restaurant.find()
     .lean()
-    .then(restaurants => res.render('index', { restaurants }))
+    .then(restaurants => res.render("index", { restaurants }))
     .catch(error => console.error(error))
 })
 
@@ -65,6 +65,24 @@ app.get("/search", (req, res) => {
   )
   console.log(restaurants)
   res.render("index", { restaurants, keyword })
+})
+
+// Setting the dynamic route for the edit button on the index page
+app.get("/restaurants/:restaurant_id/edit", (req, res) => {
+  const id = req.params.restaurant_id
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render("edit", { restaurant }))
+    .catch(error => console.log(error))
+})
+
+// Setting the dynamic route for 提交更新 button on the edit page
+app.post('/restaurants/:restaurant_id/edit', (req, res) => {
+  const id = req.params.restaurant_id
+  const info = req.body
+  return Restaurant.findByIdAndUpdate(id, info)
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch(err => console.log(err))
 })
 
 // Setting the message for activating the server
