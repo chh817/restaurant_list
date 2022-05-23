@@ -85,6 +85,15 @@ app.post('/restaurants/:restaurant_id/edit', (req, res) => {
     .catch(err => console.log(err))
 })
 
+// Setting the dynamic route for the detail button on the index page
+app.get('/restaurants/:restaurant_id', (req, res) => {
+  const id = req.params.restaurant_id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('show', { restaurant }))
+    .catch(error => console.log(error))
+})
+
 // Setting the message for activating the server
 app.listen(port, () => {
   console.log(`The server http://localhost:${port} is activated!`)
