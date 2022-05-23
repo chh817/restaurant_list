@@ -94,6 +94,14 @@ app.get('/restaurants/:restaurant_id', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// Setting the dynamic route for the delete button on the index page
+app.post('/restaurants/:restaurant_id/delete', (req, res) => {
+  const id = req.params.restaurant_id
+  return Restaurant.findByIdAndDelete(id)
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 // Setting the message for activating the server
 app.listen(port, () => {
   console.log(`The server http://localhost:${port} is activated!`)
