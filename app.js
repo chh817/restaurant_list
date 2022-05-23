@@ -34,16 +34,24 @@ db.once('open', () => {
 // Locating the static files
 app.use(express.static("public"))
 
+// Requiring the Restaurant model
+const Restaurant = require('./models/restaurant')
 
 // Setting the static route for the index page
 app.get("/", (req, res) => {
-  res.render("index", { restaurants: restaurantList.results })
+  Restaurant.find()
+    .lean()
+    .then(restaurants => res.render('index', { restaurants }))
+    .catch(error => console.error(error))
 })
 
 // Setting the dynamic route for the show page
 app.get("/restaurants/:restaurant_id", (req, res) => {
-  const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-  res.render("show", { restaurant })
+  const id = req.params.restaurant_id
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render("show", { restaurant }))
+    .catch(error => console.log(error))
 })
 
 // Setting the search route for the index page
