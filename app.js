@@ -1,43 +1,35 @@
-// Requiring and executing the Express framework
+// Assign variables
 const express = require("express")
-const app = express()
-
-// Assign the server-related variables
-const port = 3000
-
-// Requiring the Express-Handlebars package
 const { engine } = require("express-handlebars")
+const bodyParser = require("body-parser")
+const app = express()
+const port = 3000
+const Restaurant = require("./models/restaurant")
+const mongoose = require("mongoose")
 
-// Setting up the template engine Handlebars
+// Connect MongoDB
+mongoose.connect(process.env.MONGODB_URI,
+  { useNewUrlParser: true, useUnifiedTopology: true })
+
+const db = mongoose.connection
+db.on("error", () => {
+  console.log("connection error!")
+})
+db.once("open", () => {
+  console.log("Mongodb connected!")
+})
+
+// Set up Handlebars
 app.engine("handlebars", engine({ defaultLayout: "main" }))
 app.set("view engine", "handlebars")
 
-// Requiring the Mongoose package
-const mongoose = require("mongoose")
-
-// Setting up the connection to the MongoDB Atlas database
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-
-// Checking the connection status
-const db = mongoose.connection
-
-// Connection failed
-db.on("error", () => {
-  console.log("mongodb error!")
-})
-
-// Connection successful
-db.once("open", () => {
-  console.log("mongodb connected!")
-})
-
-// Locating the static files
+// Use static files
 app.use(express.static("public"))
 
-// Requiring the Restaurant model
-const Restaurant = require("./models/restaurant")
+// Use body-parser
+app.use(bodyParser.urlencoded({ extended: true }))
 
-// Setting the static route for the index page
+// Route for index page
 app.get("/", (req, res) => {
   Restaurant.find()
     .lean()
@@ -45,64 +37,68 @@ app.get("/", (req, res) => {
     .catch(error => console.error(error))
 })
 
-// Setting the dynamic route for the show page
-app.get("/restaurants/:restaurant_id", (req, res) => {
-  const id = req.params.restaurant_id
-  return Restaurant.findById(id)
+// Route for searching a restaurant
+app.get("/search", (req, res) => {
+  const keyword = req.query.keyword.trim().toLowerCase()
+  Restaurant.find()
+    .lean()
+    .then(restaurants => {
+      const restaurantsFiltered = restaurants.filter(
+        restaurant =>
+          restaurant.name.toLowerCase().includes(keyword) || restaurant.category.includes(keyword)
+      )
+      res.render("index", { restaurants: restaurantsFiltered, keyword })
+    })
+    .catch(err => console.log(err))
+})
+
+// Route for clicking create button
+app.get("/restaurants/new", (req, res) => {
+  return res.render("new")
+})
+
+// Route for creating a new restaurant
+app.post("/restaurants", (req, res) => {
+  Restaurant.create(req.body)
+    .then(() => res.redirect("/"))
+    .catch(err => console.log(err))
+})
+
+// Route for show page
+app.get("/restaurants/:restaurantId", (req, res) => {
+  const id = req.params.restaurantId
+  Restaurant.findById(id)
     .lean()
     .then(restaurant => res.render("show", { restaurant }))
     .catch(error => console.log(error))
 })
 
-// Setting the search route for the index page
-app.get("/search", (req, res) => {
-  if (!req.query.keyword) {
-    res.redirect("/")
-  }
-  const keyword = req.query.keyword.trim().toLowerCase()
-  const restaurants = restaurantList.results.filter(restaurant =>
-    restaurant.name.toLowerCase().includes(keyword) || restaurant.category.includes(keyword)
-  )
-  console.log(restaurants)
-  res.render("index", { restaurants, keyword })
-})
-
-// Setting the dynamic route for the edit button on the index page
-app.get("/restaurants/:restaurant_id/edit", (req, res) => {
-  const id = req.params.restaurant_id
-  return Restaurant.findById(id)
+// Route for edit page
+app.get("/restaurants/:restaurantId/edit", (req, res) => {
+  const id = req.params.restaurantId
+  Restaurant.findById(id)
     .lean()
     .then(restaurant => res.render("edit", { restaurant }))
     .catch(error => console.log(error))
 })
 
-// Setting the dynamic route for 提交更新 button on the edit page
-app.post('/restaurants/:restaurant_id/edit', (req, res) => {
-  const id = req.params.restaurant_id
-  const info = req.body
-  return Restaurant.findByIdAndUpdate(id, info)
+// Route for editing the restaurant info 
+app.post("/restaurants/:restaurantId/edit", (req, res) => {
+  const id = req.params.restaurantId
+  Restaurant.findByIdAndUpdate(id, req.body)
     .then(() => res.redirect(`/restaurants/${id}`))
     .catch(err => console.log(err))
 })
 
-// Setting the dynamic route for the detail button on the index page
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  const id = req.params.restaurant_id
-  return Restaurant.findById(id)
-    .lean()
-    .then((restaurant) => res.render('show', { restaurant }))
+// Route for deleting the restaurant info
+app.post("/restaurants/:restaurantId/delete", (req, res) => {
+  const id = req.params.restaurantId
+  Restaurant.findByIdAndDelete(id)
+    .then(() => res.redirect("/"))
     .catch(error => console.log(error))
 })
 
-// Setting the dynamic route for the delete button on the index page
-app.post('/restaurants/:restaurant_id/delete', (req, res) => {
-  const id = req.params.restaurant_id
-  return Restaurant.findByIdAndDelete(id)
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
-// Setting the message for activating the server
+// Start and listen on the Express server
 app.listen(port, () => {
-  console.log(`The server http://localhost:${port} is activated!`)
+  console.log(`Express is listening on http://localhost:${port}`)
 })
