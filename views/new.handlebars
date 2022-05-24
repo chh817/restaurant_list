@@ -1,0 +1,55 @@
+<h1 class="mb-1 restaurant-show-title">新增餐廳</h1>
+<div class="container">
+  <form action="/restaurants" method="POST">
+    <div class="mb-3 form-group">
+      <label for="name" class="form-label required">中文店名</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="請輸入餐廳中文名稱" />
+    </div>
+    <div class="mb-3 form-group">
+      <label for="name_en" class="form-label required">英文店名</label>
+      <input type="text" class="form-control" id="name_en" name="name_en" placeholder="請輸入餐廳英文名稱" />
+    </div>
+    <div class="mb-3 form-group">
+      <label for="category" class="form-label required">餐廳類別</label>
+      <input list="categories" class="form-control" id="category" name="category" placeholder="請選擇餐廳類別" />
+      <datalist id="categories">
+        <option>中東料理</option>
+        <option>日本料理</option>
+        <option>義式餐廳</option>
+        <option>美式</option>
+        <option>酒吧</option>
+        <option>咖啡</option>
+      </datalist>
+    </div>
+    <div class="mb-3 form-group">
+      <label for="image" class="form-label required">餐廳圖片</label>
+      <input type="url" class="form-control" id="image" name="image" placeholder="請上傳餐廳照片" />
+    </div>
+    <div class="mb-3 form-group">
+      <label for="location" class="form-label required">餐廳地址</label>
+      <input type="text" class="form-control" id="location" name="location" placeholder="請輸入餐廳中文地址" />
+    </div>
+    <div class="mb-3 form-group">
+      <label for="phone" class="form-label required">餐廳電話</label>
+      <input type="tel" class="form-control" id="phone" name="phone" placeholder="請輸入餐廳電話" inputmode="numeric" />
+    </div>
+    <div class="mb-3 form-group">
+      <label for="google_map" class="form-label required">餐廳地圖連結</label>
+      <input type="url" class="form-control" id="google_map" name="google_map" placeholder="請輸入餐廳位置連結" />
+    </div>
+    <div class="mb-3 form-group">
+      <label for="rating" class="form-label required">餐廳評價</label>
+      <input type="number" class="form-control" id="rating" name="rating" placeholder="請輸入餐廳評價" min="0" max="5"
+        step="0.1" inputmode="numeric" />
+    </div>
+    <div class="mb-3 form-group">
+      <label for="description" class="form-label required">餐廳描述</label>
+      <textarea class="form-control" id="description" name="description" placeholder="請輸入餐廳描述" rows="3"></textarea>
+    </div>
+    <div class="text-center">
+      <input type="submit" class="btn btn-primary" value="新增餐廳">
+      <a class="btn btn-secondary" href="/" role="button">返回首頁</a>
+      <input type="reset" class="btn btn-dark" value="重新輸入">
+    </div>
+  </form>
+</div>
