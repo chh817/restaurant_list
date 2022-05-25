@@ -23,7 +23,7 @@
 1. 請先確認有安裝 node.js 與 npm
 2. 將專案 clone 到本地，透過終端機輸入
 ```zsh
-git clone https://github.com/chh817/restaurant_list.git
+git clone -b main --single-branch https://github.com/chh817/restaurant_list.git
 ```
 3. 進入 restaurant_list 資料夾，輸入
 ```zsh
