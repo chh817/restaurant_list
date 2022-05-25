@@ -36,7 +36,7 @@ header {
 }
 
 .form-control::placeholder {
-  color: #aaaaaa;
+  color: #7e7a7a;
   font-size: 0.8rem;
 }
 
@@ -48,6 +48,10 @@ header {
 .form-control:focus {
   box-shadow: none;
   border-color: #ced4da;
+}
+
+#dropdownMenuLink {
+  width: 280px
 }
 
 .card {

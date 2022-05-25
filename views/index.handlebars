@@ -2,13 +2,27 @@
 <div class="container search-bar">
   <div class="search-bar-outer">
     <div class="search-bar-inner">
+      <h4 class="mb-2">尋找餐廳：</h4>
       <form action="/search">
-        <h4 class="mb-2">尋找餐廳：</h4>
-        <div class="input-group">
-          <input type="text" name="keyword" value=" {{keyword}}" class="form-control" placeholder="輸入餐廳、分類"
-            aria-label="Restaurant Name..." value="" aria-describedby="search-button">
-          <div class="input-group-append">
-            <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+        <div class="d-flex flex-row">
+          <div class=" input-group">
+            <input type="text" class="form-control" name="keyword" placeholder="輸入餐廳、分類" value=" {{keyword}}"
+              aria-label="Restaurant Name..." value="" aria-describedby="search-button" />
+            <div class="input-group-append">
+              <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+          <div class="dropdown pl-5">
+            <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Sort
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="/nameAsc"> A -> Z </a>
+              <a class="dropdown-item" href="/nameDesc"> Z -> A </a>
+              <a class="dropdown-item" href="/categoryAsc"> 類別 </a>
+              <a class="dropdown-item" href="/locationAsc"> 地區 </a>
+            </div>
           </div>
         </div>
       </form>
@@ -40,7 +54,7 @@
           <div class="card-footer d-flex justify-content-end flex-wrap">
             <a class="btn btn-link btn-sm" href="/restaurants/{{this._id}}/edit" role="button">Edit</a>
             <a class="btn btn-link btn-sm" href="/restaurants/{{this._id}}" role="button">Detail</a>
-            <form action="./restaurants/{{ this._id }}/delete" method="POST">
+            <form action="./restaurants/{{ this._id }}?_method=DELETE" method="POST">
               <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
             </form>
           </div>
