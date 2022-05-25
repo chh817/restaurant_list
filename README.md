@@ -14,10 +14,10 @@
 - Node.js 16.15.0
 - Express 4.18.1
 - Express-Handlebars 6.0.6
-- Bootstrap 4.3.1
-- Font-awesome 6.1.1
+- Bootstrap.js 4.3.1
+- Font-Awesome 6.1.1
 - MongoDB Atlas
-- mongoose 6.3.4
+- Mongoose 6.3.4
 
 ## 開始使用
 1. 請先確認有安裝 node.js 與 npm
@@ -37,7 +37,7 @@ export MONGODB_URI="mongodb+srv://依據自己的連線字串"
 ```zsh
 npm run seed
 ```
-6. 設定完畢，繼續輸入
+6. 載入完畢，繼續輸入
 ```zsh
 npm run start
 ```
