@@ -13,7 +13,7 @@
 ## 開發工具
 - Node.js 16.15.0
 - Express 4.18.1
-- Express-Handlebars 6.3.4
+- Express-Handlebars 6.0.6
 - Bootstrap 4.3.1
 - Font-awesome 6.1.1
 - MongoDB Atlas
