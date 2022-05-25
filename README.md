@@ -33,16 +33,20 @@ npm i
 ```zsh
 export MONGODB_URI="mongodb+srv://依據自己的連線字串"
 ```
-5. 設定完畢，繼續輸入
+5. 載入種子資料
+```zsh
+npm run seed
+```
+6. 設定完畢，繼續輸入
 ```zsh
 npm run start
 ```
-6. 當出現下列訊息代表連線成功，可進入網址進行測試
+7. 當出現下列訊息代表連線成功，可進入網址進行測試
 ```zsh
 Express is listening on http://localhost:3000
 Mongodb connected!
 ```
-7. 若要停止連線，使用下列快速鍵
+8. 若要停止連線，使用下列快速鍵
 ```zsh
 Command⌘ + C
 ```
