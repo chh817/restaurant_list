@@ -33,8 +33,8 @@ npm i
 ```
 4. 安裝完畢，設定環境變數
 ```zsh
-export MONGODB_URI="mongodb+srv://依據自己的連線字串"
-```
+export MONGODB_URI="mongodb+srv://使用者名稱:使用者密碼@資料庫位置/資料庫名稱?retryWrites=true&w=majority"
+``` 
 5. 設定完畢，載入種子資料
 ```zsh
 npm run seed
