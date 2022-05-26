@@ -10,7 +10,7 @@ const restaurants = require("./modules/restaurants")
 // Guiding request into route
 router.use("/", home)
 
-router.use('/restaurants', restaurants)
+router.use("/restaurants", restaurants)
 
 
 

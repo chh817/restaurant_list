@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
   Restaurant.find()
     .lean()
     .sort({ _id: "asc" })
-    .then(restaurants => res.render("index", { restaurants, option: "排序方式選擇" }))
+    .then(restaurants => res.render("index", { restaurants }))
     .catch(error => console.error(error))
 })
 
