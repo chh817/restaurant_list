@@ -1,31 +1,46 @@
-<!-- search bar -->
-<div class="container search-bar">
-  <div class="search-bar-outer">
-    <div class="search-bar-inner">
-      <h4 class="mb-2">尋找餐廳：</h4>
-      <form action="/search">
-        <div class="d-flex flex-row">
-          <div class=" input-group">
-            <input type="text" class="form-control" name="keyword" placeholder="輸入餐廳、分類" value=" {{keyword}}"
-              aria-label="Restaurant Name..." value="" aria-describedby="search-button" />
-            <div class="input-group-append">
-              <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+<div class="main-container d-flex justify-content-center">
+  <!-- search bar -->
+  <div class="top-container col-sm-4 row">
+    <div class="container search_bar">
+      <div class="search_bar_outer">
+        <div class="search_bar_inner">
+          <h4 class="mb-2">尋找餐廳：</h4>
+          <form action="/search">
+            <div class="d-flex flex-row">
+              <div class=" input-group">
+                <input type="text" class="form-control" name="keyword" placeholder="輸入餐廳、分類" value=" {{keyword}}"
+                  aria-label="Restaurant Name..." value="" aria-describedby="search-button" />
+                <div class="input-group-append">
+                  <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="dropdown pl-5">
-            <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              Sort
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="/nameAsc"> A -> Z </a>
-              <a class="dropdown-item" href="/nameDesc"> Z -> A </a>
-              <a class="dropdown-item" href="/categoryAsc"> 類別 </a>
-              <a class="dropdown-item" href="/locationAsc"> 地區 </a>
-            </div>
-          </div>
+          </form>
         </div>
-      </form>
+      </div>
+    </div>
+  </div>
+  <!-- sorting bar -->
+  <div class="bottom-container col-sm-4 row">
+    <div class="container sorting-bar">
+      <div class="sorting-bar-outer">
+        <div class="sorting-bar-inner">
+          <h4 class="mb-2">Sort:</h4>
+          <form action="/sort" method="POST">
+            <div class="d-flex flex-row">
+              <div class=" input-group">
+                <select class="form-control" name="select" id="select" onchange="this.form.submit()">
+                  <option>選則排序方式</option>
+                  <option value="0"> A -> Z </option>
+                  <option value="1"> Z -> A </option>
+                  <option value="2"> 類別 </option>
+                  <option value="3"> 地區 </option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
