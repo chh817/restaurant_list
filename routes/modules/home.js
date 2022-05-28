@@ -30,15 +30,10 @@ router.get("/search", (req, res) => {
 
 // Route for sorting
 router.post("/sort", (req, res) => {
-  const option = Number(req.body.select)
-  const sortRule = [
-    { name_en: "1" }, { name_en: "-1" }, { category: "1" }, { location: "1" }
-  ]
-  const sortOption = sortRule[option]
-
+  const option = req.body.select
   Restaurant.find()
     .lean()
-    .sort(sortOption)
+    .sort(option)
     .then(restaurants => res.render("index", { restaurants }))
 })
 
