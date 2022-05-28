@@ -12,7 +12,8 @@ router.get("/new", (req, res) => {
 
 // Route for creating a new restaurant
 router.post("/", (req, res) => {
-  Restaurant.create(req.body)
+  const restaurant = req.body
+  Restaurant.create(restaurant)
     .then(() => res.redirect("/"))
     .catch(err => console.log(err))
 })
