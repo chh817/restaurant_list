@@ -1,6 +1,5 @@
 // Assign variables
 const express = require("express")
-const { db } = require("../../models/restaurant")
 
 const router = express.Router()
 
