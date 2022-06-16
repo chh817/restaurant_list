@@ -1,9 +1,10 @@
 // Assign variables
 const express = require("express")
+const session = require('express-session')
 const { engine } = require("express-handlebars")
 const bodyParser = require("body-parser")
 const app = express()
-const port = 3000
+const port = 3000 || process.env.PORT
 const methodOverride = require("method-override")
 const routes = require("./routes")
 
@@ -16,6 +17,13 @@ app.set("view engine", "handlebars")
 
 // Use static files
 app.use(express.static("public"))
+
+// Use express-session
+app.use(session({
+  secret: 'ThisIsNotYourSecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 // Use body-parser
 app.use(bodyParser.urlencoded({ extended: true }))
