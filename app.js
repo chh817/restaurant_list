@@ -6,6 +6,7 @@ const bodyParser = require("body-parser")
 const app = express()
 const port = 3000 || process.env.PORT
 const methodOverride = require("method-override")
+const flash = require('connect-flash')
 const routes = require("./routes")
 const usePassport = require('./config/passport')
 
@@ -35,10 +36,15 @@ app.use(methodOverride("_method"))
 // Use passport
 usePassport(app)
 
+// Use connect-flash
+app.use(flash())
+
 // Transfer req date to res
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.successMsg = req.flash('successMsg')
+  res.locals.warningMsg = req.flash('warningMsg')
   next()
 })
 
