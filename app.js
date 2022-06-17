@@ -7,6 +7,7 @@ const app = express()
 const port = 3000 || process.env.PORT
 const methodOverride = require("method-override")
 const routes = require("./routes")
+const usePassport = require('./config/passport')
 
 // Requiring mongoose
 require("./config/mongoose")
@@ -30,6 +31,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // Use method-override
 app.use(methodOverride("_method"))
+
+// Use passport
+usePassport(app)
 
 // Guiding request into route
 app.use(routes)
