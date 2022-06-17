@@ -9,12 +9,15 @@ const restaurants = require("./modules/restaurants")
 
 const users = require('./modules/users')
 
-// Guiding request into route
-router.use("/", home)
+const { authenticator } = require('../middleware/auth')
 
-router.use("/restaurants", restaurants)
+// Guiding request into route
+
+router.use("/restaurants", authenticator, restaurants)
 
 router.use('/users', users)
+
+router.use("/", authenticator, home)
 
 
 
