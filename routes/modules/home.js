@@ -7,8 +7,9 @@ const Restaurant = require('../../models/restaurant')
 
 // Route for index page
 router.get("/", (req, res) => {
-  Restaurant.find()
-    .sort("_id")
+  const userId = req.user._id
+  Restaurant.find({ userId })
+    .sort('name')
     .lean()
     .then(restaurants => res.render("index", { restaurants }))
     .catch(error => console.error(error))
