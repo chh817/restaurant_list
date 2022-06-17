@@ -6,7 +6,7 @@ const User = require('../models/user')
 module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
-  passport.use(new localStrategy({ usernameField: email }, (email, password, done) => {
+  passport.use(new localStrategy({ usernameField: 'email' }, (email, password, done) => {
     User.findOne({ email })
       .then(user => {
         if (!user) return done(null, false, { message: 'email is not register!' })
