@@ -10,6 +10,7 @@
   {{!-- Requiring CSS files --}}
   <script src="https://kit.fontawesome.com/3fce5077a0.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+  <link rel="stylesheet" href="/stylesheets/main.css">
   <link rel="stylesheet" href="/stylesheets/index.css">
   <link rel="stylesheet" href="/stylesheets/show.css">
 </head>
@@ -25,8 +26,8 @@
           {{/if}}的餐廳清單
         </a>
         <div class="text-right">
-          <a href="/restaurants/new" class="btn btn-primary mb-3">新增</a>
           {{#if isAuthenticated}}
+          <a href="/restaurants/new" class="btn btn-primary mb-3" id="create">新增</a>
           <a class="btn btn-primary" role="button" href="/users/logout">Logout</a>
           {{/if}}
         </div>

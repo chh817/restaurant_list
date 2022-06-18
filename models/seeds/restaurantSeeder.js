@@ -50,6 +50,6 @@ db.once("open", () => {
   }))
     .then(() => {
       console.log('Done!')
-      // process.exit()
+      // process.exit() 會讓種子資料無法寫入資料庫
     })
 })
