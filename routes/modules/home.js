@@ -30,8 +30,9 @@ router.get("/search", (req, res) => {
 
 // Route for sorting
 router.post("/sort", (req, res) => {
+  const userId = req.user._id
   const option = req.body.select
-  Restaurant.find()
+  Restaurant.find({ userId })
     .sort(option)
     .lean()
     .then(restaurants => res.render("index", { restaurants }))
