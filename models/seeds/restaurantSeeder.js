@@ -30,8 +30,8 @@ const seedUsers = [
 
 // Successful connection to MongoDB Atlas
 db.once("open", () => {
-  Promise.all(Array.from(seedUsers, seedUser => {
-    bcrypt
+  return Promise.all(Array.from(seedUsers, seedUser => {
+    return bcrypt
       .genSalt(10)
       .then(salt => bcrypt.hash(seedUser.password, salt))
       .then(hash => User.create({
@@ -42,14 +42,14 @@ db.once("open", () => {
       .then(user => {
         const userId = user._id
         const ownedRestaurants = seedUser.ownedRestaurants
-        Promise.all(Array.from(ownedRestaurants, ownedRestaurant => {
+        return Promise.all(Array.from(ownedRestaurants, ownedRestaurant => {
           ownedRestaurant.userId = userId
-          Restaurant.create(ownedRestaurant)
+          return Restaurant.create(ownedRestaurant)
         }))
       })
   }))
     .then(() => {
       console.log('Done!')
-      // process.exit() 會讓種子資料無法寫入資料庫
+      process.exit()
     })
 })

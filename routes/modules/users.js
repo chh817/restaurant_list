@@ -11,7 +11,8 @@ const bcrypt = require('bcryptjs')
 
 
 // Route for login page
-router.get('/login', (req, res) => { res.render('login') })
+router.get('/login', (req, res) => res.render('login')
+)
 
 // Route for user login
 router.post('/login', passport.authenticate('local', {
