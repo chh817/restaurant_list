@@ -18,6 +18,7 @@
 - Connect-Flash 0.1.1
 - Dotenv 8.6.0
 - Express-Handlebars 6.0.6
+- Handlebars-Helpers 0.9.8
 - Express-Session 1.17.3
 - Method-Override 3.0.0
 - Mongoose 6.3.4
@@ -61,7 +62,7 @@ Command⌘ + C
 ```
 9. 附帶兩組測試帳號如下
 ```zsh
-Name : user1 , email: user1@example.com , password: 12345678
+name: user1 , email: user1@example.com , password: 12345678
 
-Name : user2 , email: user2@example.com , password: 12345678
+name: user2 , email: user2@example.com , password: 12345678
 ```

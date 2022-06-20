@@ -17,8 +17,9 @@ router.get("/", (req, res) => {
 
 // Route for searching a restaurant
 router.get("/search", (req, res) => {
+  const userId = req.user._id
   const keyword = req.query.keyword.trim().toLowerCase()
-  Restaurant.find().or([
+  Restaurant.find().and({ userId }).or([
     { name: { $regex: keyword, $options: "$i" } }, { name_en: { $regex: keyword, $options: "$i" } }, { category: { $regex: keyword, $options: "$i" } }
   ])
     .lean()
@@ -35,7 +36,7 @@ router.post("/sort", (req, res) => {
   Restaurant.find({ userId })
     .sort(option)
     .lean()
-    .then(restaurants => res.render("index", { restaurants }))
+    .then(restaurants => res.render("index", { option, restaurants }))
 })
 
 module.exports = router

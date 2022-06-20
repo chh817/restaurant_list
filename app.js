@@ -5,6 +5,10 @@ const session = require('express-session')
 
 const { engine } = require("express-handlebars")
 
+const helpers = require('handlebars-helpers')
+
+const comparison = helpers.comparison()
+
 const bodyParser = require("body-parser")
 
 const app = express()
@@ -26,7 +30,9 @@ const usePassport = require('./config/passport')
 require("./config/mongoose")
 
 // Set up Handlebars
-app.engine("handlebars", engine({ defaultLayout: "main" }))
+app.engine("handlebars", engine({
+  defaultLayout: "main",
+}))
 app.set("view engine", "handlebars")
 
 // Use static files

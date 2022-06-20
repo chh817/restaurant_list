@@ -8,11 +8,11 @@ const User = require('../../models/user')
 const passport = require('passport')
 
 const bcrypt = require('bcryptjs')
+const { Cookie } = require("express-session")
 
 
 // Route for login page
-router.get('/login', (req, res) => res.render('login')
-)
+router.get('/login', (req, res) => res.render('login'))
 
 // Route for user login
 router.post('/login', passport.authenticate('local', {

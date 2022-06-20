@@ -31,10 +31,10 @@
               <div class=" input-group">
                 <select class="form-control" name="select" id="select" onchange="this.form.submit()">
                   <option>選擇排序方式</option>
-                  <option value="name_en"> A -> Z </option>
-                  <option value="-name_en"> Z -> A </option>
-                  <option value="category"> 類別 </option>
-                  <option value="location"> 地區 </option>
+                  <option value="name_en" {{#is option 'name_en' }}selected{{/is}}> A -> Z </option>
+                  <option value="-name_en" {{#is option '-name_en' }}selected{{/is}}> Z -> A </option>
+                  <option value="category" {{#is option 'category' }}selected{{/is}}> 類別 </option>
+                  <option value="location" {{#is option 'location' }}selected{{/is}}> 地區 </option>
                 </select>
               </div>
             </div>
