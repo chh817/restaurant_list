@@ -12,8 +12,8 @@ router.get("/new", (req, res) => {
 
 // Route for creating a new restaurant
 router.post("/", (req, res) => {
-  req.body.userId = req.user._id
-  const { name, name_en, category, image, location, phone, google_map, rating, description, userId } = req.body
+  const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
+  const userId = req.user._id
   Restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description, userId })
     .then(() => res.redirect("/"))
     .catch(err => console.log(err))
@@ -44,7 +44,7 @@ router.put("/:restaurantId", (req, res) => {
   const userId = req.user._id
   const _id = req.params.restaurantId
   Restaurant.findOneAndUpdate({ _id, userId }, req.body)
-    .then(() => res.redirect(`/restaurants/${id}`))
+    .then(() => res.redirect(`/restaurants/${_id}`))
     .catch(err => console.log(err))
 })
 

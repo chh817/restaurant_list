@@ -43,8 +43,18 @@ db.once("open", () => {
         const userId = user._id
         const ownedRestaurants = seedUser.ownedRestaurants
         return Promise.all(Array.from(ownedRestaurants, ownedRestaurant => {
-          ownedRestaurant.userId = userId
-          return Restaurant.create(ownedRestaurant)
+          return Restaurant.create({
+            name: ownedRestaurant.name,
+            name_en: ownedRestaurant.name_en,
+            category: ownedRestaurant.category,
+            image: ownedRestaurant.image,
+            location: ownedRestaurant.location,
+            phone: ownedRestaurant.phone,
+            google_map: ownedRestaurant.google_map,
+            rating: ownedRestaurant.rating,
+            description: ownedRestaurant.description,
+            userId: userId
+          })
         }))
       })
   }))
